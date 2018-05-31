@@ -19,10 +19,10 @@ To use this script, add the following HTML anywhere inside of your code and use 
 let myElement = document.getElementById('myDiv');
 
 const touch = new TouchInput(myElement, {
-    // Options
-    treshold: 20, // this is for 20% of the page's width
+    // Options:
+    treshold: 10, // this is 10% of the page's width; default is 1%.
     
-    // Events
+    // Events:              (these are also the default event handlers)
     onSwipeLeft: (event) => {
         console.log('Swiped left');
     },
