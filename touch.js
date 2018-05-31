@@ -1,7 +1,7 @@
-class Touch {
+class TouchInput {
     /**
      * @param {Element} element Gesture target
-     * @param {JSON} opts JSON object for describing events
+     * @param {JSON} opts JSON object for events and options
      */
     constructor(element, opts) {
         this.touchstartX = 0;
@@ -14,11 +14,11 @@ class Touch {
 
         this.limit = Math.tan(45 * 1.5 / 180 * Math.PI);
 
-        this.swipeLeft = opts.swipeLeft || function () { console.log('Swiped left'); };
-        this.swipeRight = opts.swipeRight || function () { console.log('Swiped right'); };
-        this.swipeUp = opts.swipeUp || function () { console.log('Swiped up'); };
-        this.swipeDown = opts.swipeDown || function () { console.log('Swiped down'); };
-        this.tap = opts.tap || function () { console.log('Tap'); };
+        this.swipeLeft = opts.onSwipeLeft || function () { console.log('Swiped left'); };
+        this.swipeRight = opts.onSwipeRight || function () { console.log('Swiped right'); };
+        this.swipeUp = opts.onSwipeUp || function () { console.log('Swiped up'); };
+        this.swipeDown = opts.onSwipeDown || function () { console.log('Swiped down'); };
+        this.tap = opts.onTap || function () { console.log('Tap'); };
         
         element.addEventListener('touchstart', function (event) {
             touch.start(event);
