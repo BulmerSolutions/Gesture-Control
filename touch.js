@@ -9,23 +9,38 @@ class TouchInput {
         this.touchendX = 0;
         this.touchendY = 0;
 
-        this.pageWidth = window.innerWidth || document.body.clientWidth;
-        this.treshold = Math.max(1, Math.floor((opts.treshold / 100 || 0.01) * this.pageWidth));
+        // save threshold percentage and update
+        this.thresholdPrecentage = opts.Threshold  || 10;
+
+        this.updateThreshold ();
 
         this.limit = Math.tan(45 * 1.5 / 180 * Math.PI);
 
+        // initializing functions
         this.swipeLeft = opts.onSwipeLeft || function () { console.log('Swiped left'); };
         this.swipeRight = opts.onSwipeRight || function () { console.log('Swiped right'); };
         this.swipeUp = opts.onSwipeUp || function () { console.log('Swiped up'); };
         this.swipeDown = opts.onSwipeDown || function () { console.log('Swiped down'); };
         this.tap = opts.onTap || function () { console.log('Tap'); };
-        
+
+        // creating event listeners
         element.addEventListener('touchstart', function (event) {
             touch.start(event);
         }, false);
         element.addEventListener('touchend', function (event) {
             touch.end(event);
         }, false);
+    }
+
+    /**
+     * @description Updates the threshold 
+     */
+    updateThreshold () {
+        let width = window.innerWidth || document.body.clientWidth,
+            height = window.innerHeight || document.body.clientHeight,
+            page = (width <= height) ? width : height;
+
+        this.threshold  = Math.max(1, Math.floor((this.thresholdPrecentage / 100) * page));
     }
 
     /**
@@ -57,7 +72,7 @@ class TouchInput {
             xy = Math.abs(x / y),
             yx = Math.abs(y / x);
 
-        if (Math.abs(x) > this.treshold || Math.abs(y) > this.treshold) {
+        if (Math.abs(x) > this.threshold  || Math.abs(y) > this.threshold ) {
             if (yx <= this.limit) {
                 if (x < 0) {
                     this.swipeLeft(event);
