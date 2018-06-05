@@ -36,7 +36,7 @@ const touch = new TouchInput(myElement, {
         console.log('Swiped down');
     },
     onTap: (event) => {
-        console.log('Swiped right');
+        console.log('Tap');
     }
 });
 ```
